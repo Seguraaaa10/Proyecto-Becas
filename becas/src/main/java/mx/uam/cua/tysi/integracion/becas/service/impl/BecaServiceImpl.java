@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BecaServiceImpl implements BecaService {
@@ -56,5 +57,53 @@ public class BecaServiceImpl implements BecaService {
         }
 
         return becaDTOS;
+    }
+
+    @Override
+    public BecaDTO getBecaById(Long id){
+        Optional<Beca> beca = becaRepository.findById(id);
+
+        BecaDTO becaDTO = new BecaDTO();
+
+        if(beca.isPresent()){
+            Beca b = beca.get();
+
+            becaDTO.setId(b.getId());
+            becaDTO.setNombre(b.getNombre());
+            becaDTO.setMontoTotal(b.getMontoTotal());
+            becaDTO.setMensualidad(b.getMensualidad());
+            becaDTO.setPeriodicidad(b.getPeriodicidad());
+            becaDTO.setDuracionMeses(b.getDuracionMeses());
+            becaDTO.setEstadoConvocatoria(b.getEstadoConvocatoria());
+        }
+
+        return becaDTO;
+    }
+
+    @Override
+    public BecaDTO updateBeca(Long id, BecaDTO becaDTO){
+        Optional<Beca> becaOptional = becaRepository.findById(id);
+
+        if(becaOptional.isPresent()){
+            Beca beca = becaOptional.get();
+
+            beca.setNombre(becaDTO.getNombre());
+            beca.setMontoTotal(becaDTO.getMontoTotal());
+            beca.setMensualidad(becaDTO.getMensualidad());
+            beca.setPeriodicidad(becaDTO.getPeriodicidad());
+            beca.setDuracionMeses(becaDTO.getDuracionMeses());
+            beca.setEstadoConvocatoria(becaDTO.getEstadoConvocatoria());
+
+            Beca becaActualizada = becaRepository.save(beca);
+
+            becaDTO.setId(becaActualizada.getId());
+        }
+
+        return becaDTO;
+    }
+
+    @Override
+    public void deleteBeca(Long id){
+        becaRepository.deleteById(id);
     }
 }
