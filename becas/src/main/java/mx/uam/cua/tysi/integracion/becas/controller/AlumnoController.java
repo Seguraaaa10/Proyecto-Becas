@@ -1,7 +1,7 @@
 package mx.uam.cua.tysi.integracion.becas.controller;
 
 
-import mx.uam.cua.tysi.integracion.becas.entity.Alumno;
+import mx.uam.cua.tysi.integracion.becas.dto.AlumnoDTO;
 import mx.uam.cua.tysi.integracion.becas.service.AlumnoService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,55 +13,33 @@ import java.util.Optional;
 public class AlumnoController {
     private final AlumnoService alumnoService;
 
-    public AlumnoController(AlumnoService alumnoService) {
+    public AlumnoController(AlumnoService alumnoService){
         this.alumnoService = alumnoService;
     }
 
+    @PostMapping
+    public AlumnoDTO createAlumno(@RequestBody AlumnoDTO alumnoDTO){
+        return alumnoService.createAlumno(alumnoDTO);
+    }
+
     @GetMapping
-    public List<Alumno> obtenerAlumnos() {
-        return alumnoService.obtenerTodos();
+    public List<AlumnoDTO> getAlumnos(){
+        return alumnoService.getAlumnos();
     }
 
     @GetMapping("/{id}")
-    public Optional<Alumno> obtenerAlumno(@PathVariable Integer id) {
-        return alumnoService.obtenerPorId(id);
-    }
-
-    @PostMapping
-    public Alumno crearAlumno(@RequestBody Alumno alumno) {
-        return alumnoService.guardarAlumno(alumno);
+    public AlumnoDTO getAlumnoById(@PathVariable Long id){
+        return alumnoService.getAlumnoById(id);
     }
 
     @PatchMapping("/{id}")
-    public Alumno actualizarAlumno(@PathVariable Integer id, @RequestBody Alumno alumno) {
-
-        Optional<Alumno> alumnoExistente = alumnoService.obtenerPorId(id);
-
-        if (alumnoExistente.isPresent()) {
-
-            Alumno a = alumnoExistente.get();
-
-            if (alumno.getNombre() != null)
-                a.setNombre(alumno.getNombre());
-
-            if (alumno.getMatricula() != null)
-                a.setMatricula(alumno.getMatricula());
-
-            if (alumno.getCarrera() != null)
-                a.setCarrera(alumno.getCarrera());
-
-            if (alumno.getPromedio() != null)
-                a.setPromedio(alumno.getPromedio());
-
-            return alumnoService.guardarAlumno(a);
-        }
-
-        return null;
+    public AlumnoDTO updateAlumno(@PathVariable Long id, @RequestBody AlumnoDTO alumnoDTO){
+        return alumnoService.updateAlumno(id, alumnoDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void eliminarAlumno(@PathVariable Integer id) {
-        alumnoService.eliminarAlumno(id);
+    public void deleteAlumno(@PathVariable Long id){
+        alumnoService.deleteAlumno(id);
     }
 
 }

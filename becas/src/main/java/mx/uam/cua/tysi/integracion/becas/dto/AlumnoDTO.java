@@ -1,29 +1,18 @@
-package mx.uam.cua.tysi.integracion.becas.entity;
+package mx.uam.cua.tysi.integracion.becas.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "Alumnos")
-public class Alumno {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAlumno;
-
+public class AlumnoDTO {
+    private Long id;
     private String nombre;
-
     private String matricula;
-
     private String carrera;
-
     private Double promedio;
 
-    public Long getIdAlumno() {
-        return idAlumno;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdAlumno(Long idAlumno) {
-        this.idAlumno = idAlumno;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -39,6 +28,7 @@ public class Alumno {
     }
 
     public void setMatricula(String matricula) {
+        String matricricula;
         this.matricula = matricula;
     }
 
@@ -57,5 +47,4 @@ public class Alumno {
     public void setPromedio(Double promedio) {
         this.promedio = promedio;
     }
-
 }
