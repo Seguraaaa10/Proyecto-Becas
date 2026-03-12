@@ -4,12 +4,15 @@ import mx.uam.cua.tysi.integracion.becas.dto.AlumnoDTO;
 import mx.uam.cua.tysi.integracion.becas.entity.Alumno;
 import mx.uam.cua.tysi.integracion.becas.repository.AlumnoRepository;
 import mx.uam.cua.tysi.integracion.becas.service.AlumnoService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AlumnoServiceImpl implements AlumnoService {
+
     private final AlumnoRepository alumnoRepository;
 
     public AlumnoServiceImpl(AlumnoRepository alumnoRepository){
