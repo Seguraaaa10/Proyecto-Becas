@@ -5,35 +5,49 @@ document.addEventListener("DOMContentLoaded", () => {
 function cargarBecas() {
     fetch("http://localhost:8080/becas")
         .then(res => res.json())
-        .then(data => {
-            let tabla = document.getElementById("tabla-becas");
-            tabla.innerHTML = "";
-
-            data.forEach(beca => {
-                tabla.innerHTML += `
-                <tr>
-                    <td>${beca.id}</td>
-                    <td>${beca.nombre}</td>
-                    <td>${beca.montoTotal}</td>
-                    <td>${beca.estadoConvocatoria}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm"
-                            onclick="abrirModal(${beca.id}, '${beca.nombre}', ${beca.montoTotal}, '${beca.estadoConvocatoria}')">
-                            Editar
-                        </button>
-
-                        <button class="btn btn-danger btn-sm"
-                            onclick="eliminarBeca(${beca.id})">
-                            Eliminar
-                        </button>
-                    </td>
-                </tr>
-                `;
-            });
-        });
+        .then(data => pintarTabla(data));
 }
 
-// CORREGIDO (sin símbolo raro y con montoTotal)
+function buscarBeca() {
+    const id = document.getElementById("buscarId").value;
+
+    if (!id) {
+        alert("Ingresa un ID");
+        return;
+    }
+
+    fetch(`http://localhost:8080/becas/${id}`)
+        .then(res => res.json())
+        .then(data => pintarTabla([data]));
+}
+
+function pintarTabla(data) {
+    let tabla = document.getElementById("tabla-becas");
+    tabla.innerHTML = "";
+
+    data.forEach(beca => {
+        tabla.innerHTML += `
+        <tr>
+            <td>${beca.id}</td>
+            <td>${beca.nombre}</td>
+            <td>${beca.montoTotal}</td>
+            <td>${beca.estadoConvocatoria}</td>
+            <td>
+                <button class="btn btn-warning btn-sm"
+                    onclick="abrirModal(${beca.id}, '${beca.nombre}', ${beca.montoTotal}, '${beca.estadoConvocatoria}')">
+                    Editar
+                </button>
+
+                <button class="btn btn-danger btn-sm"
+                    onclick="eliminarBeca(${beca.id})">
+                    Eliminar
+                </button>
+            </td>
+        </tr>
+        `;
+    });
+}
+
 function agregarBeca() {
     const nombre = document.getElementById("nombre").value;
     const monto = document.getElementById("monto").value;
@@ -52,19 +66,14 @@ function agregarBeca() {
             estadoConvocatoria: estado
         })
     })
-        .then(res => res.json())
-        .then(() => {
-            cargarBecas();
-        });
+        .then(() => cargarBecas());
 }
 
 function eliminarBeca(id) {
     fetch(`http://localhost:8080/becas/${id}`, {
         method: "DELETE"
     })
-        .then(() => {
-            cargarBecas();
-        });
+        .then(() => cargarBecas());
 }
 
 function abrirModal(id, nombre, monto, estado) {
@@ -73,8 +82,7 @@ function abrirModal(id, nombre, monto, estado) {
     document.getElementById("editMonto").value = monto;
     document.getElementById("editEstado").value = estado;
 
-    let modal = new bootstrap.Modal(document.getElementById('modalEditar'));
-    modal.show();
+    new bootstrap.Modal(document.getElementById('modalEditar')).show();
 }
 
 function guardarEdicion() {
@@ -90,7 +98,7 @@ function guardarEdicion() {
         },
         body: JSON.stringify({
             nombre: nombre,
-            montoTotal: parseFloat(monto),   // ✅ FIX
+            montoTotal: parseFloat(monto),
             estadoConvocatoria: estado
         })
     })
