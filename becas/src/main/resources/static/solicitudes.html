@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitud de Beca</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <span class="navbar-brand">Sistema de Becas - Solicitudes</span>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4">Solicitud de Beca</h1>
+
+    <!-- DATOS DEL ALUMNO -->
+    <div class="card p-4 mb-4 shadow">
+        <h4>Datos del Alumno</h4>
+
+        <div class="row g-2">
+            <div class="col-md-2">
+                <input type="number" id="idAlumno" class="form-control" placeholder="ID Alumno">
+            </div>
+
+            <div class="col-md-3">
+                <input type="text" id="nombre" class="form-control" placeholder="Nombre">
+            </div>
+
+            <div class="col-md-3">
+                <input type="text" id="matricula" class="form-control" placeholder="Matrícula">
+            </div>
+
+            <div class="col-md-2">
+                <input type="text" id="carrera" class="form-control" placeholder="Carrera">
+            </div>
+
+            <div class="col-md-2">
+                <input type="number" id="promedio" class="form-control" placeholder="Promedio">
+            </div>
+        </div>
+    </div>
+
+    <!-- FECHA -->
+    <div class="card p-3 mb-4 shadow">
+        <h5>Fecha de Solicitud</h5>
+        <input type="date" id="fechaSolicitud" class="form-control">
+    </div>
+
+    <!-- LISTA DE BECAS -->
+    <div class="card p-4 mb-4 shadow">
+        <h4>Becas disponibles (solo activas)</h4>
+
+        <div id="lista-becas">
+            <!-- JS -->
+        </div>
+    </div>
+
+    <!-- BOTON -->
+    <div class="text-center mb-5">
+        <button class="btn btn-success px-5" onclick="enviarSolicitud()">Enviar Solicitud</button>
+    </div>
+
+    <!-- TABLA DE SOLICITUDES -->
+    <h3 class="text-center mb-3">Solicitudes Registradas</h3>
+
+    <div class="text-center mb-3">
+        <button class="btn btn-secondary" onclick="cargarSolicitudes()">
+            Ver Solicitudes
+        </button>
+    </div>
+
+    <table class="table table-hover shadow">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Alumno</th>
+            <th>Beca</th>
+        </tr>
+        </thead>
+        <tbody id="tabla-solicitudes"></tbody>
+    </table>
+
+</div>
+
+<!-- JS -->
+<script src="js/solicitudes.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
