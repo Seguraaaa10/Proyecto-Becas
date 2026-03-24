@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Becas Externas</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <span class="navbar-brand">Sistema de Becas - Externas</span>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4">Gestión de Becas Externas</h1>
+
+    <div class="text-center mb-4">
+        <img src="assets/img/imagen.png" class="img-fluid rounded shadow" width="250">
+    </div>
+
+    <div class="card p-3 mb-4 shadow">
+        <h5>Buscar por ID</h5>
+        <div class="row g-2">
+            <div class="col-md-4">
+                <input type="number" id="buscarId" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100" onclick="buscar()">Buscar</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-secondary w-100" onclick="cargar()">Ver todas</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card p-4 mb-4 shadow">
+        <h4>Agregar Beca Externa</h4>
+
+        <div class="row g-2">
+            <div class="col-md-3">
+                <input id="nombre" class="form-control" placeholder="Nombre">
+            </div>
+            <div class="col-md-2">
+                <input id="monto" type="number" class="form-control" placeholder="Monto">
+            </div>
+            <div class="col-md-2">
+                <input id="mensualidad" type="number" class="form-control" placeholder="Mensualidad">
+            </div>
+            <div class="col-md-2">
+                <input id="duracion" type="number" class="form-control" placeholder="Duración">
+            </div>
+            <div class="col-md-2">
+                <input id="periodicidad" class="form-control" placeholder="Periodicidad">
+            </div>
+            <div class="col-md-1">
+                <input id="estado" class="form-control" placeholder="Estado">
+            </div>
+            <div class="col-md-3 mt-2">
+                <input id="tipo" class="form-control" placeholder="Tipo de beca">
+            </div>
+            <div class="col-md-12 mt-2">
+                <button class="btn btn-success w-100" onclick="agregar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-hover shadow">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Monto</th>
+            <th>Mensualidad</th>
+            <th>Duración</th>
+            <th>Periodicidad</th>
+            <th>Estado</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody id="tabla"></tbody>
+    </table>
+
+</div>
+
+<div class="modal fade" id="modalEditar" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Beca</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="editId">
+                <input id="editNombre" class="form-control mb-2" placeholder="Nombre">
+                <input id="editMonto" type="number" class="form-control mb-2" placeholder="Monto">
+                <input id="editMensualidad" type="number" class="form-control mb-2" placeholder="Mensualidad">
+                <input id="editDuracion" type="number" class="form-control mb-2" placeholder="Duración">
+                <input id="editPeriodicidad" class="form-control mb-2" placeholder="Periodicidad">
+                <input id="editEstado" class="form-control mb-2" placeholder="Estado">
+                <input id="editTipo" class="form-control" placeholder="Tipo">
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="guardarEdicion()">Guardar cambios</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="js/becasexternas.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

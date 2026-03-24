@@ -32,6 +32,7 @@ public class BecaExternaServiceImpl implements BecaExternaService {
         e.setPeriodicidad(dto.getPeriodicidad());
 
         BecaExterna guardada = repository.save(e);
+
         dto.setId(guardada.getIdBecasExternas());
 
         return dto;
@@ -63,10 +64,11 @@ public class BecaExternaServiceImpl implements BecaExternaService {
     @Override
     public BecaExternaDTO getById(Long id){
         Optional<BecaExterna> op = repository.findById(id);
-        BecaExternaDTO d = new BecaExternaDTO();
 
         if(op.isPresent()){
             BecaExterna e = op.get();
+
+            BecaExternaDTO d = new BecaExternaDTO();
 
             d.setId(e.getIdBecasExternas());
             d.setNombre(e.getNombre());
@@ -76,9 +78,11 @@ public class BecaExternaServiceImpl implements BecaExternaService {
             d.setDuracionMeses(e.getDuracionMeses());
             d.setEstadoConvocatoria(e.getEstadoConvocatoria());
             d.setPeriodicidad(e.getPeriodicidad());
+
+            return d;
         }
 
-        return d;
+        return null;
     }
 
     @Override
@@ -97,10 +101,12 @@ public class BecaExternaServiceImpl implements BecaExternaService {
             e.setPeriodicidad(dto.getPeriodicidad());
 
             BecaExterna updated = repository.save(e);
+
             dto.setId(updated.getIdBecasExternas());
+            return dto;
         }
 
-        return dto;
+        return null;
     }
 
     @Override
